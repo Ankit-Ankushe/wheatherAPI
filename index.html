@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheather App</title>
+    <style>
+        #input {
+            border: 1px solid red;
+            text-align: center;
+            padding: 5%;
+        }
+
+        #input>input {
+            padding: 1%;
+            background-color: rgb(197, 197, 197);
+            font-size: 20px;
+            border: 2px solid gray;
+        }
+
+        #inputValue {
+            width: 50%;
+        }
+
+        #display {
+            border: 1px solid black;
+            height: auto;
+            text-align: center;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="input">
+        <input type="text" id="inputValue" placeholder="Enter a city">
+        <input type="submit" id="submit" onclick="getData()">
+    </div>
+    <div id="display">
+       <div> <h1 id="name"></h1></div>
+        <b>
+            <img id="icon">
+            <p id=" pressure"></p>
+        <p id="temp"></p>
+        <p id="humidity"></p>
+        <p id="windSpeed"></p>
+        <p id="sunrise"></p>
+        <p id="sunset"></p>
+        <p id="desc"></p>
+        </b>
+    </div>
+</body>
+<script>
+    var apiKey = "f356b35a97ca1fb03d940c3cc324616d"
+    async function getData() {
+        let inputValue = document.getElementById("inputValue").value;
+        var name = document.getElementById("name");
+        var pressure = document.getElementById(" pressure");
+        var temp = document.getElementById("temp");
+        var humidity = document.getElementById("humidity");
+        var windSpeed = document.getElementById("windSpeed");
+        var sunrise = document.getElementById("sunrise");
+        var sunset = document.getElementById("sunset");
+        var desc = document.getElementById("desc");
+        var img = document.getElementById("icon");
+
+
+        name.innerText  = inputValue;
+
+        var res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=${apiKey}`);
+        var data = await res.json()
+        console.log(data)
+
+        temp.innerText = Number(data.main.temp - 288.53).toFixed(1)+"°";
+        pressure.innerText ="Pressure = "+ data.main.pressure + " hPa";
+        humidity.innerText = "humidity =" +data.main.humidity +" %";
+        windSpeed.innerText ="Wind Speed = " +data.wind.speed + " m/s";
+        sunrise.innerText ="SunRise = " + data.sys.sunrise;
+        sunset.innerText ="sunset = " + data.sys.sunset;
+        desc.innerText ="description = " + data.weather[0].description;
+        img.src="http://openweathermap.org/img/wn/"+data.weather[0].icon+".png";
+        
+    }
+</script>
+
+</html>
