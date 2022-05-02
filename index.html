@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wheather App</title>
     <style>
+        
+        
         #input {
-            border: 1px solid red;
             text-align: center;
             padding: 5%;
         }
@@ -25,9 +26,16 @@
         }
 
         #display {
-            border: 1px solid black;
             height: auto;
             text-align: center;
+            width: 200px;
+            margin: auto;
+            border: 1px solid grey;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            /* background-image: url("https://tse1.mm.bing.net/th?id=OIP.OUK7MLLSVAWXCxi-tYR4DQHaEK&pid=Api&P=0&w=308&h=173"); */
+
+        }
+        #display>{
 
         }
     </style>
@@ -74,7 +82,7 @@
         var data = await res.json()
         console.log(data)
 
-        temp.innerText = Number(data.main.temp - 288.53).toFixed(1)+"°";
+        temp.innerText ="Temp = " Number(data.main.temp - 288.53).toFixed(1)+"°";
         pressure.innerText ="Pressure = "+ data.main.pressure + " hPa";
         humidity.innerText = "humidity =" +data.main.humidity +" %";
         windSpeed.innerText ="Wind Speed = " +data.wind.speed + " m/s";
